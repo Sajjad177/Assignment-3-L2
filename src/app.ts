@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
+import router from "./routers";
 
 const app: Application = express();
 
@@ -12,6 +13,8 @@ const corseOptions = {
 };
 
 app.use(cors(corseOptions));
+
+app.use("/api", router);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
