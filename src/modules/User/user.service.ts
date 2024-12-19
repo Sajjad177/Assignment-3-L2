@@ -2,7 +2,6 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../../error/AppError";
 import { TLoginUser, TUser } from "./user.interface";
 import { User } from "./user.model";
-import bcrypt from "bcrypt";
 
 const registerUserInDB = async (payload: TUser) => {
   const user = await User.create(payload);
@@ -11,16 +10,13 @@ const registerUserInDB = async (payload: TUser) => {
 
 const loginUserInDB = async (payload: TLoginUser) => {
   const { email, password } = payload;
-
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
     throw new AppError("User not found", StatusCodes.NOT_FOUND);
   }
 
-  const isPasswordMatched = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordMatched) {
+  if (!(await User.isPasswordMatched(password, user.password))) {
     throw new AppError("Password is incorrect", StatusCodes.UNAUTHORIZED);
   }
 

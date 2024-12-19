@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, UseModel } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser, UseModel>(
   {
     name: { type: String, required: [true, "Name is required"] },
     email: {
@@ -14,6 +14,7 @@ const userSchema = new Schema<TUser>(
     password: {
       type: String,
       required: [true, "Password is required"],
+      select: false,
     },
     role: {
       type: String,
@@ -37,10 +38,11 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// remove password when sending response
-userSchema.post("save", async function (doc, next) {
-  doc.password = "";
-  next();
-});
+userSchema.statics.isPasswordMatched = async function (
+  password: string,
+  hashedPassword: string
+) {
+  return await bcrypt.compare(password, hashedPassword);
+};
 
-export const User = model<TUser>("User", userSchema);
+export const User = model<TUser, UseModel>("User", userSchema);
