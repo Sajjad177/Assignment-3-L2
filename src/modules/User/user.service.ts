@@ -10,7 +10,7 @@ const registerUserInDB = async (payload: TUser) => {
 
 const loginUserInDB = async (payload: TLoginUser) => {
   const { email, password } = payload;
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.isUserExist(email);
 
   if (!user) {
     throw new AppError("User not found", StatusCodes.NOT_FOUND);
