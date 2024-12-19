@@ -1,3 +1,4 @@
+import QueryBuilder from "../../builder/Querybuilder";
 import { User } from "../User/user.model";
 import { TBlog } from "./blog.interface";
 import { Blog } from "./blog.model";
@@ -10,9 +11,30 @@ const createBlogInDB = async (payload: TBlog) => {
     throw new Error("Author not found");
   }
 
-  const result = await Blog.create({ ...blogData });
+  const result = await Blog.create({ ...blogData, author });
   const data = await result.populate("author");
   return data;
+};
+
+const getAllBlogFromDB = async (query: Record<string, unknown>) => {
+  const isBlogPublished = await Blog.find({ isPublished: true });
+  if (!isBlogPublished) {
+    throw new Error("BLog is not published");
+  }
+
+  const isBlogAuthor = await Blog.find({ author: query.author });
+  if (!isBlogAuthor) {
+    throw new Error("Blog author not found");
+  }
+
+  const blogQuery = new QueryBuilder(Blog.find().populate("author"), query)
+    .search(["title"])
+    .filter() 
+    .sortBy()
+    .sortOrder();
+
+  const result = await blogQuery.modelQuery;
+  return result;
 };
 
 const updateBlogInDb = async (id: string, payload: Partial<TBlog>) => {
@@ -40,6 +62,7 @@ const deleteBlogInDB = async (id: string) => {
 
 export const BlogService = {
   createBlogInDB,
+  getAllBlogFromDB,
   updateBlogInDb,
   deleteBlogInDB,
 };
