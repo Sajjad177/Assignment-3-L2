@@ -28,7 +28,18 @@ const updateBlogInDb = async (id: string, payload: Partial<TBlog>) => {
   return result;
 };
 
+const deleteBlogInDB = async (id: string) => {
+  const isBlogExist = await Blog.findById(id);
+  if (!isBlogExist) {
+    throw new Error("Blog not found");
+  }
+
+  const result = await Blog.findByIdAndDelete(id);
+  return result;
+};
+
 export const BlogService = {
   createBlogInDB,
   updateBlogInDb,
+  deleteBlogInDB,
 };
