@@ -8,7 +8,13 @@ const router = Router();
 router.post(
   "/register",
   validateRequest(UserValidation.userValidationSchema),
-  userController.createUser
+  userController.registerUser
+);
+
+router.post(
+  "/login",
+  validateRequest(UserValidation.loginUserValidationSchema),
+  userController.loginUser
 );
 
 export const userRoutes = router;

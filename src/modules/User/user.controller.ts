@@ -3,8 +3,8 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { userService } from "./user.service";
 
-const createUser = catchAsync(async (req, res) => {
-  const result = await userService.createUserInDB(req.body);
+const registerUser = catchAsync(async (req, res) => {
+  const result = await userService.registerUserInDB(req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
@@ -14,6 +14,18 @@ const createUser = catchAsync(async (req, res) => {
   });
 });
 
+const loginUser = catchAsync(async (req, res) => {
+  const result = await userService.loginUserInDB(req.body);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "login successfully",
+    data: result,
+  });
+});
+
 export const userController = {
-  createUser,
+  registerUser,
+  loginUser,
 };
