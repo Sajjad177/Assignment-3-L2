@@ -25,8 +25,13 @@ const userValidationSchema = z.object({
   }),
 });
 
-
+const updateUserValidationSchema = z.object({
+  body: z.object({
+    isBlocked: z.boolean().optional(),
+  }),
+});
 
 export const UserValidation = {
   userValidationSchema,
+  updateUserValidationSchema,
 };
