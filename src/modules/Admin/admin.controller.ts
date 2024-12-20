@@ -17,13 +17,12 @@ const blockUser = catchAsync(async (req, res) => {
 
 const deleteBlogs = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await adminService.deleteBlogsFromDB(id);
+  await adminService.deleteBlogsFromDB(id);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
     message: "Blogs deleted successfully",
-    data: result,
   });
 });
 
