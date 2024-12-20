@@ -10,6 +10,7 @@ const router = Router();
 
 router.patch(
   "/users/:userId/block",
+  auth(USER_ROLES.admin as TUserRole),
   validateRequest(UserValidation.updateUserValidationSchema),
   adminController.blockUser
 );

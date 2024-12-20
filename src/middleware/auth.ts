@@ -8,10 +8,8 @@ import { User } from "../modules/User/user.model";
 import { TUserRole } from "../modules/User/user.interface";
 
 const auth = (...requiredRoles: TUserRole[]) => {
-  console.log("requiredRoles", requiredRoles);
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const extractedToken = req.headers.authorization;
-    console.log("extractedToken", extractedToken);
 
     const token = extractedToken?.split(" ")[1];
     // check token :
@@ -33,11 +31,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
       throw new AppError("User not found", StatusCodes.NOT_FOUND);
     }
 
-    console.log("decoded", decoded);
-
     // checking user role :
     if (requiredRoles && !requiredRoles.includes(role)) {
-      console.log("requiredRoles", requiredRoles);
       throw new AppError("You are not authorized!", StatusCodes.UNAUTHORIZED);
     }
 
