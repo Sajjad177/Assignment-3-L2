@@ -15,7 +15,7 @@ router.post(
   BlogController.createBlog
 );
 
-router.get("/", auth(), BlogController.getAllBlog);
+router.get("/", BlogController.getAllBlog);
 
 router.patch(
   "/:id",

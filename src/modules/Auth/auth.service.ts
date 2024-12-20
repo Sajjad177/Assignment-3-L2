@@ -8,7 +8,7 @@ import config from "../../config";
 const loginUserInDB = async (payload: TLoginUser) => {
   const user = await User.isUserExist(payload.email);
   if (!user) {
-    throw new AppError("User not found", StatusCodes.NOT_FOUND);
+    throw new AppError("Invalid credentials", StatusCodes.UNAUTHORIZED);
   }
 
   if (!(await User.isPasswordMatched(payload.password, user.password))) {
