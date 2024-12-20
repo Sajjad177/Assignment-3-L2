@@ -20,7 +20,6 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   ];
 
   // checking there it's zod error or validation error
-
   if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error);
     statusCode = simplifiedError?.statusCode;
@@ -61,7 +60,6 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   }
 
   // sending response
-
   res.status(statusCode).json({
     success: false,
     message,

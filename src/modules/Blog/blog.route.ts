@@ -2,6 +2,7 @@ import { Router } from "express";
 import { BlogController } from "./blog.controller";
 import validateRequest from "../../middleware/validateRequest";
 import { BlogValidation } from "./blog.validation";
+import auth from "../../middleware/auth";
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.post(
   BlogController.createBlog
 );
 
-router.get("/", BlogController.getAllBlog);
+router.get("/", auth(), BlogController.getAllBlog);
 
 router.patch(
   "/:id",

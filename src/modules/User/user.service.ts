@@ -1,5 +1,4 @@
-import { StatusCodes } from "http-status-codes";
-import AppError from "../../error/AppError";
+
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
