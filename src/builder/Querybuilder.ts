@@ -1,4 +1,3 @@
-import { compareSync } from "bcrypt";
 import { FilterQuery, Model, Query } from "mongoose";
 
 class QueryBuilder<T> {
@@ -12,14 +11,15 @@ class QueryBuilder<T> {
 
   // TODO : Search by title
   search(searchableFields: string[]) {
-    const searchTerm = this.query?.searchTerm;
+    const search = this.query?.search;
+    // console.log("search -> ", search);
 
-    if (searchTerm) {
+    if (search) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields?.map(
           (field) =>
             ({
-              [field]: { $regex: searchTerm, $options: "i" },
+              [field]: { $regex: search, $options: "i" },
             } as FilterQuery<T>)
         ),
       });
@@ -28,7 +28,6 @@ class QueryBuilder<T> {
   }
 
   // TODO : Filter by authorId
-
   filter() {
     const authorId = this.query?.filter;
 
@@ -40,26 +39,15 @@ class QueryBuilder<T> {
     return this;
   }
 
-  // TODO : Sort by createdAt
-  sortBy() {
-    const sort =
-      (this?.query?.sort as string)?.split(",").join(" ") || "createdAt";
-    console.log("sort -> ", sort);
-    if (sort) {
-      this.modelQuery = this.modelQuery.sort(sort);
+  sort() {
+    const { sortBy, sortOrder } = this.query;
+    const sortOption: { [key: string]: 1 | -1 } = {};
+
+    if (sortBy && typeof sortBy === "string" && typeof sortOrder === "string") {
+      sortOption[sortBy] = sortOrder === "desc" ? -1 : 1;
     }
 
-    return this;
-  }
-
-  // TODO : Sort by descending order
-  sortOrder() {
-    const sortOrder =
-      (this?.query?.sortOrder as string)?.split(",").join(" ") || "-createdAt";
-    console.log("sortOrder -> ", sortOrder);
-    if (sortOrder) {
-      this.modelQuery = this.modelQuery.sort(sortOrder);
-    }
+    this.modelQuery = this.modelQuery.sort(sortOption);
     return this;
   }
 }

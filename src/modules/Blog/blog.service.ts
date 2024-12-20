@@ -30,8 +30,7 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
   const blogQuery = new QueryBuilder(Blog.find().populate("author"), query)
     .search(["title"])
     .filter()
-    .sortBy()
-    .sortOrder();
+    .sort();
 
   const result = await blogQuery.modelQuery;
   return result;
