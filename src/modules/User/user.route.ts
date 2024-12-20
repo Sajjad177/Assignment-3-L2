@@ -17,4 +17,5 @@ router.post(
   userController.loginUser
 );
 
+
 export const userRoutes = router;

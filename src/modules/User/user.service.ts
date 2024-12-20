@@ -23,6 +23,7 @@ const loginUserInDB = async (payload: TLoginUser) => {
   return user;
 };
 
+
 export const userService = {
   registerUserInDB,
   loginUserInDB,

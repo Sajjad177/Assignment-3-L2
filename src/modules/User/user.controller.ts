@@ -30,6 +30,11 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
+
+
 export const userController = {
   registerUser,
   loginUser,
