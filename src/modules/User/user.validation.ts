@@ -25,22 +25,8 @@ const userValidationSchema = z.object({
   }),
 });
 
-const loginUserValidationSchema = z.object({
-  body: z.object({
-    email: z
-      .string({
-        required_error: "email is required ",
-      })
-      .email(),
-    password: z
-      .string({
-        required_error: "password is required",
-      })
-      .min(8),
-  }),
-});
+
 
 export const UserValidation = {
   userValidationSchema,
-  loginUserValidationSchema,
 };

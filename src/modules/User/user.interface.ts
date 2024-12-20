@@ -9,10 +9,7 @@ export interface TUser {
   isBlocked: boolean;
 }
 
-export type TLoginUser = {
-  email: string;
-  password: string;
-};
+
 
 export interface UseModel extends Model<TUser> {
   isPasswordMatched(password: string, hashedPassword: string): Promise<boolean>;
