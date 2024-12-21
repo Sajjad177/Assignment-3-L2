@@ -79,6 +79,6 @@
   **You can also check route and see auth gurad some route add for user.SO this route access only user and some route for admin this route only admin can access.**
   **If you test this you add user and admin token in header section** : 
     ```tarminal
-        Key : Authorization and add value : Bearer <token>
+        Key : Authorization and add [user and admin token] value : Bearer <token>
     ```
 
