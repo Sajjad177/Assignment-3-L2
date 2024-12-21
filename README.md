@@ -54,6 +54,31 @@
     ```tarminal
         npm run lint:fix
     ```
+## API Endpoint: 
+  1. When create user:
+      **POST: /api/auth/register**
+  2. User and Admin Login:
+     **POST: /api/auth/login**
+  3. Create Blog:
+     **POST: /api/blogs**
+  4. Update Blog:
+     **PATCH: /api/blogs/:id**
+  5. Delete Blog:
+     **DELETE: /api/blogs/:id**
+  6. Get All Blogs
+     **GET: /api/blogs**
+     ***There you can also search by title, sort any blog by "title or createAt, sortOrder with asc (ascending) or desc (descending) and also filter by authorId.**
+     <br/>
+  ## For admin:
+  1. Block User:
+     **PATCH: /api/admin/users/:userId/block**
+  2. Delete Blog:
+     **DELETE: /api/admin/blogs/:id**
 
-     
+  ## Authorization
+  **You can also check route and see auth gurad some route add for user.SO this route access only user and some route for admin this route only admin can access.
+  **If you test this you add user and admin token in header section : 
+    ```tarminal
+        Key : Authorization and add value : Bearer <token>
+    ```
 
