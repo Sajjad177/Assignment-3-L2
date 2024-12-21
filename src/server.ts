@@ -17,19 +17,3 @@ async function main() {
 }
 
 main();
-
-// This is two way to handle unhandled rejection and uncaught exception
-process.on("unhandledRejection", (error) => {
-  console.log("Unhandled Rejection", error);
-  if (server) {
-    server.close(() => {
-      process.exit(1);
-    });
-  }
-});
-
-process.on("uncaughtException", (error) => {
-  console.log("Unhandled Exception", error);
-  process.exit(1);
-});
-

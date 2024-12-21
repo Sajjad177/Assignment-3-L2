@@ -38,6 +38,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// checking password is matched or not 
 userSchema.statics.isPasswordMatched = async function (
   password: string,
   hashedPassword: string
@@ -45,6 +46,7 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(password, hashedPassword);
 };
 
+// checking user is exist or not
 userSchema.statics.isUserExist = async function (email: string) {
   return await User.findOne({ email }).select("+password");
 };

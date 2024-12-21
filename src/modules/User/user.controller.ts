@@ -13,8 +13,7 @@ const registerUser = catchAsync(async (req, res) => {
     data: {
       id: result._id,
       name: result.name,
-      email: result.email,
-      role: result.role,
+      email: result.email
     },
   });
 });
