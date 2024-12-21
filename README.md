@@ -1,7 +1,7 @@
 ## Blog Project Backend Mangement
 
 
-### 🌐 [Live link to server](https://github.com/Sajjad177/Assignment-3-L2) 🌐
+### 🌐 [Live link to server](https://assignment-3-l2-xi.vercel.app) 🌐
 
 ## 📜 Project Overview :
 
